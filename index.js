@@ -1,17 +1,14 @@
-let primeiro_nome = window.prompt("Insira seu primeiro nome:");
-let segundo_nome = window.prompt("Insira seu segundo nome:");
-let campo_de_estudo = window.prompt("Insira seu campo de estudo:");
-let ano_de_nascimento = window.prompt("Insira seu ano de nascimento:");
-//ano_de_nascimento = parseInt(ano_de_nascimento);
-
-alert(
-  "Recruta cadastrado com sucesso!\n" +
+"use strict";
+const firtName = prompt("Insira seu primeiro nome:");
+const secondName = prompt("Insira seu segundo nome:");
+const studyArea = prompt("Insira seu campo de estudo:");
+const yearOfBirth = parseFloat(prompt("Insira seu ano de nascimento:"));
+alert("Recruta cadastrado com sucesso!\n" +
     "\nNome completo: " +
-    primeiro_nome +
+    firtName +
     " " +
-    segundo_nome +
+    secondName +
     "\nCampo de estudo: " +
-    campo_de_estudo +
+    studyArea +
     "\nIdade: " +
-    (2023 - ano_de_nascimento)
-);
+    ((new Date().getFullYear()) - yearOfBirth));
