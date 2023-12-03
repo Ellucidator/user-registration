@@ -1,9 +1,18 @@
-import * as React from 'react'
+import { Outlet } from 'react-router-dom'
 
 export function Layout() {
     return (
-        <div>
-            {}
-        </div>
+        <>
+            <header>
+                
+            </header>
+            <div>
+                <Outlet />
+            </div>
+            <footer>
+
+            </footer>
+
+        </>
     )
 }

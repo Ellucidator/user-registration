@@ -1,11 +1,14 @@
-import React from "react"
+import router from "./router"
+import { RouterProvider } from "react-router-dom"
+import RegistrationContextProvider from "./context/RegistrationContext"
 
 function App() {
 
   return (
-    <div className="App">
-      <h1>Hello Vite + React!</h1>
-    </div>
+    <RegistrationContextProvider>
+      <RouterProvider router={router} />
+    </RegistrationContextProvider>
+    
   )
 }
 
