@@ -15,8 +15,10 @@ class CandidateEntity implements Candidate {
     gender: string;
     fieldOfStudy: string;
     date: Date;
+    id:number
 
     constructor(candidate: Candidate) {
+        this.id = Math.floor(Math.random() * 10000); 
         this.name = candidate.name;
         this.email = candidate.email;
         this.phone = candidate.phone;
