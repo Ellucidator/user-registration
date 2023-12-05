@@ -3,28 +3,29 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import './style.css'
-import { useState } from "react";
+import {  FormEvent, useState } from "react";
 
 
 export default function RegistryForm() {
     const formDefaut = {
-        name: undefined,
-        email: undefined,
-        phone: undefined,
-        age: undefined,
-        gender: undefined,
-        fieldOfStudy: undefined
+        name: '',
+        email: '',
+        phone: '',
+        age: 0,
+        gender: '',
+        fieldOfStudy: ''
     }
     const [cadidate,setCandidate] = useState(formDefaut)
 
     const stateUpdate = (ev:any)=>{
-        setCandidate({
-            ...cadidate,
-            [ev.target.name]: ev.target.value
+        setCandidate((state)=>{
+            return {
+                ...state,
+                [ev.target.name]: ev.target.value
+            }
         })
     }
-
-    const handleSubmit = (ev:any)=>{
+    const handleSubmit = (ev:FormEvent<HTMLFormElement>)=>{
         ev.preventDefault()
         console.log(cadidate)
     }
@@ -59,7 +60,7 @@ export default function RegistryForm() {
 
                 <Form.Group as={Col} controlId="formGridState">
                     <Form.Label>Campo de estudo</Form.Label>
-                    <Form.Select value={cadidate.fieldOfStudy} name="fieldOfStudy" onChange={stateUpdate}>
+                    <Form.Select defaultValue={cadidate.fieldOfStudy} name="fieldOfStudy" onChange={stateUpdate}>
                         <option value="Full-stack" >Full-stack</option>
                         <option value="Front-end">Front-end</option>
                         <option value="Back-end">Back-end</option>
