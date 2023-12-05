@@ -9,14 +9,22 @@ export default function RegistrationContextProvider(props:{
 }) {
     const {children} = props
 
-    const [candidatesData, setCandidatesData] = useState([{}])
+    const [candidatesData, setCandidatesData] = useState(()=>{
+        const candidates = localStorage.getItem('project-user-registration')
+        if(candidates){
+            return JSON.parse(candidates)
+        }
+        return []
+    })
 
 
-const addCandidate = (cadidate: Candidate) => {
-    setCandidatesData(state=>{
-        const stateCandidate = new CandidateEntity(cadidate)
+const addCandidate = (candidate: Candidate) => {
+    setCandidatesData((state: CandidateEntity[])=>{
+        const stateCandidate = new CandidateEntity(candidate)
         return [...state, stateCandidate]
     })
+
+    localStorage.setItem('project-user-registration', JSON.stringify(candidatesData))
 }
 
 
