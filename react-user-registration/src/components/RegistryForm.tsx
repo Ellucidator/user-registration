@@ -4,6 +4,8 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import './style.css'
 import {  FormEvent, useState } from "react";
+import useRegistration from "../hook/useRegistration";
+import CandidateEntity from "../entities/candidate";
 
 
 export default function RegistryForm() {
@@ -16,10 +18,11 @@ export default function RegistryForm() {
         fieldOfStudy: ''
     }
     const [cadidate,setCandidate] = useState(formDefaut)
+    const {addCandidate, removeCandidate, candidatesData} = useRegistration() 
 
     const stateUpdate = (ev:any)=>{
         setCandidate((state)=>{
-            return {
+            return{
                 ...state,
                 [ev.target.name]: ev.target.value
             }
@@ -27,6 +30,8 @@ export default function RegistryForm() {
     }
     const handleSubmit = (ev:FormEvent<HTMLFormElement>)=>{
         ev.preventDefault()
+        const validCandidate = new CandidateEntity(cadidate)
+        addCandidate(validCandidate)
         console.log(cadidate)
     }
 
@@ -61,6 +66,7 @@ export default function RegistryForm() {
                 <Form.Group as={Col} controlId="formGridState">
                     <Form.Label>Campo de estudo</Form.Label>
                     <Form.Select defaultValue={cadidate.fieldOfStudy} name="fieldOfStudy" onChange={stateUpdate}>
+                        <option value="">...</option>
                         <option value="Full-stack" >Full-stack</option>
                         <option value="Front-end">Front-end</option>
                         <option value="Back-end">Back-end</option>

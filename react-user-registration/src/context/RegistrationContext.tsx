@@ -1,13 +1,14 @@
-import {createContext, useState } from "react"
+import {ReactNode, createContext, useState } from "react"
 import { Candidate } from "../entities/candidate"
 import CandidateEntity from "../entities/candidate"
+interface RegistrationContext {
+    candidatesData: CandidateEntity[]
+    addCandidate: (candidate: Candidate) => void
+    removeCandidate: (id: number) => void
+}
+export const RegistrationContext = createContext({} as RegistrationContext)
 
-export const RegistrationContext = createContext({})
-
-export default function RegistrationContextProvider(props:{
-    children: React.ReactNode
-}) {
-    const {children} = props
+export default function RegistrationContextProvider(props:{children:ReactNode}) {
 
     const [candidatesData, setCandidatesData] = useState(()=>{
         const candidates = localStorage.getItem('project-user-registration')
@@ -18,19 +19,29 @@ export default function RegistrationContextProvider(props:{
     })
 
 
-const addCandidate = (candidate: Candidate) => {
-    setCandidatesData((state: CandidateEntity[])=>{
-        const stateCandidate = new CandidateEntity(candidate)
-        return [...state, stateCandidate]
+const addCandidate = async(candidate: Candidate) => {
+    setCandidatesData((state:any)=>{
+        const updated = [...state,candidate ]
+        localStorage.setItem('project-user-registration', JSON.stringify(updated))
+        return updated
     })
+    }
 
-    localStorage.setItem('project-user-registration', JSON.stringify(candidatesData))
-}
-
+const removeCandidate = (id:number) => {
+    setCandidatesData((state: CandidateEntity[])=>{
+        const candidates = state.filter(candidate=> candidate.id !== id)
+        return candidates
+        })
+    }
+    const data = {
+        candidatesData,
+        addCandidate,
+        removeCandidate
+    }
 
     return(
-        <RegistrationContext.Provider value={{candidatesData, addCandidate}}>
-            {children}
+        <RegistrationContext.Provider value={data}>
+            {props.children}
         </RegistrationContext.Provider>
     )
 }
