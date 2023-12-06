@@ -15,12 +15,13 @@ export default function RegistrationContextProvider(props:{children:ReactNode}) 
         if(candidates){
             return JSON.parse(candidates)
         }
-        return []
+        let data:CandidateEntity[]=[]
+        return data
     })
 
 
 const addCandidate = async(candidate: Candidate) => {
-    setCandidatesData((state:any)=>{
+    setCandidatesData((state: CandidateEntity[])=>{
         const updated = [...state,candidate ]
         localStorage.setItem('project-user-registration', JSON.stringify(updated))
         return updated
